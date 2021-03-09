@@ -1,5 +1,5 @@
 
-# Json AIS parser
+# Go json AIS zero speed position parser
 
 ## Input output
 This golang executable takes an AIS line delimited JSON file, containing AIS data messages. Some of them message types are positional messages containing a GPS position for a given vessel.
@@ -8,8 +8,8 @@ The message types are  :1, 2, 3, 18, 19, 27.
 The program takes this AIS message list as an input, extracts the GPS position, calculates displacement using the Haversine formula, then computes the vessel speed.
 For each vessel keeps a state object up to date with the [i-1]-th and [i]-th position with i in [1-N] and the position set from [0-N].
 It processes each message iteratively and updates the vessel state on every new position found.
-When calculating speed and time and meeting the following conditions: speed < 1 knot for 60 mins or more then a zero speed stopped geojson feature is created as an output.
-Whenever the vessel moves again the speed status is reset until meeting a new stopped postion with the above mentioned conditions, or until the end of the data input file.
+When calculating speed and time and meeting the following conditions: **speed < 1 knot for 60 mins or more** then a zero speed stopped geojson feature is created as an output.
+Whenever the vessel moves again the speed status is reset in the relevant vessel state object, until finding a new stopped postion with the above mentioned conditions, or until running out of input data, reaching the end of the data input file.
 
 ## AIS JSON input example:
 `
