@@ -38,7 +38,7 @@ Steps:.
 - Creating a state object per found AIS vessel, updating the state at each relevant record found.
 - Updating an ouput map of selected position for the final position report.
 
-On a modest 1500 NZD 2020 laptop i5-10210U with 16GB of RAM, the program processed a 3GB input file counting 8.955.836 AIS messages (json records) in 1min20secs on my laptop and used max 700MB of RAM.
+On a modest 1500 NZD 2020 laptop i5-10210U with 16GB of RAM, the program processed a **3GB** input file counting **8.955.836** AIS messages (json records) in **1min20secs** on my laptop and used max 700MB of RAM.
 
 ## Sample input and output
 File sample available in the **sample_data** folder.
