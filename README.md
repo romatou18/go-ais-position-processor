@@ -33,11 +33,16 @@ For instance:
 ## Sample input and output
 File sample available in the **sample_data** folder.
 
+## Pre-compiled executable
+A linux x86_64 executable is provided **govessel_x86_64_linux**
 
-## Pre requisite
+
+## Build and run
+
+### Pre requisite
 - install golang version 1.15.8 or superior as per the go.mod file
 
-## Build and Run the program
+### Build and Run the program
 - go build .
 `./govessel -in sample_data/part0000.json -out geojson_output_file.json`
 
