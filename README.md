@@ -44,6 +44,7 @@ A linux x86_64 executable is provided **govessel_x86_64_linux**
 
 ### Build and Run the program
 - go build .
+
 `./govessel -in sample_data/part0000.json -out geojson_output_file.json`
 
 ## Code files
