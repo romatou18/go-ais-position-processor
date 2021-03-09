@@ -1,7 +1,7 @@
 
 # Json AIS parser
 
-## Goal
+## Input output
 This golang executable takes an AIS line delimited JSON file, containing AIS data messages. Some of them message types are positional messages containing a GPS position for a given vessel.
 The message types are  :1, 2, 3, 18, 19, 27.
 
@@ -30,15 +30,23 @@ A feature is of the following form:
 For instance:
 {"type":"Feature","geometry":{"type":"Point","coordinates":[173.54578, -41.67789]},"properties":{"name":12345,"duration_sec":3602,"date_UTC":"2021-06-05T01:02:21Z"}}
 
+## Approach and performance considerations
+Fast iterative approach using the Golang Reader/ Json decoder interface + state objects that lazy load the required data. This allows fast processing and low RAM needs.
+
+Steps:.
+- Reading json input line by line using the golang Json decoder buffered interface.
+- Creating a state object per found AIS vessel, updating the state at each relevant record found.
+- Updating an ouput map of selected position for the final position report.
+
+On a modest 1500 NZD 2020 laptop i5-10210U with 16GB of RAM, the program processed a 3GB input file counting 8.955.836 AIS messages (json records) in 1min20secs on my laptop and used max 700MB of RAM.
+
 ## Sample input and output
 File sample available in the **sample_data** folder.
 
 ## Pre-compiled executable
 A linux x86_64 executable is provided **govessel_x86_64_linux**
 
-
 ## Build and run
-
 ### Pre requisite
 - install golang version 1.15.8 or superior as per the go.mod file
 
@@ -47,14 +55,6 @@ A linux x86_64 executable is provided **govessel_x86_64_linux**
 
 `./govessel -in sample_data/part0000.json -out geojson_output_file.json`
 
-## Code files
-
-- main.go
-- jsonwriter.go
-- haversine.go 
-
-## Performance and memory footprint
-On a modest 1500 NZD 2020 laptop i5-10210U with 16GB of RAM, the program processed a 3GB input file counting 8.955.836 AIS messages (json records) in 1min20secs on my laptop and used max 700MB of RAM.
 
 ## Mapping and representation on the world map
 The generated geojson report can be uploaded on http://geojson.io in order to be visualised on the world map.
