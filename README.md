@@ -1,5 +1,6 @@
 
 # Go json AIS zero speed position parser
+Takes an AIS vessel position feed, and tries detecting suspicious or illegal fishing or other unauthorised activities.
 
 ## Input output
 This golang executable takes an AIS line delimited JSON file, containing AIS data messages. Some of them message types are positional messages containing a GPS position for a given vessel.
