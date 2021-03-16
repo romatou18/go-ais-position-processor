@@ -1,6 +1,6 @@
 
 # Go json AIS zero speed position parser
-Takes an AIS vessel position feed, and tries detecting suspicious or illegal fishing or other unauthorised activities.
+Takes an AIS vessel position feed, and tries detecting suspicious or illegal fishing or other unauthorised activities. The feed will often be very large 1 to 100GB on average, hence performance and controlled memory usage are key. This program using state objects maintaining a minimal state per vessel instead of per position record. 
 
 ## Input output
 This golang executable takes an AIS line delimited JSON file, containing AIS data messages. Some of them message types are positional messages containing a GPS position for a given vessel.
@@ -12,7 +12,7 @@ It processes each message iteratively and updates the vessel state on every new 
 When calculating speed and time and meeting the following conditions: **speed < 1 knot for 60 mins or more** then a zero speed stopped geojson feature is created as an output.
 Whenever the vessel moves again the speed status is reset in the relevant vessel state object, until finding a new stopped postion with the above mentioned conditions, or until running out of input data, reaching the end of the data input file.
 
-## AIS JSON input example:
+## AIS JSON feed input example:
 `
 {"Message":{"MessageID":3,"RepeatIndicator":0,"UserID":12345,"Valid":true,"NavigationalStatus":3,"RateOfTurn":0,"Sog":1.7,"PositionAccuracy":false,"Longitude":166.90754833333332,"Latitude":-21.46249,"Cog":290.3,"TrueHeading":34,"Timestamp":57,"SpecialManoeuvreIndicator":0,"Spare":0,"Raim":false,"CommunicationState":4336},"UTCTimeStamp":1588636800}
 {"Message":{"MessageID":5,"RepeatIndicator":0,"UserID":56789,"Valid":true,"AisVersion":0,"ImoNumber":9344382,"CallSign":"V2CZ5  ","Name":"GRETA               ","Type":79,"Dimension":{"A":86,"B":15,"C":11,"D":4},"FixType":1,"Eta":{"Month":4,"Day":18,"Hour":14,"Minute":0},"MaximumStaticDraught":3.9,"Destination":"CAPE TOWN           ","Dte":false,"Spare":false},"UTCTimeStamp":1588636800}
